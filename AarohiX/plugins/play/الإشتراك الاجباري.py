@@ -10,16 +10,16 @@ async def must_join_channel(app: Client, msg: Message):
         return
     try:
         try:
-            await app.get_chat_member(Muntazer, msg.from_user.id)
+            await app.get_chat_member(l2_2Y, msg.from_user.id)
         except UserNotParticipant:
             if Muntazer.isalpha():
-                link = "https://t.me/" + Muntazer
+                link = "https://t.me/" + l2_2Y
             else:
-                chat_info = await app.get_chat(Muntazer)
+                chat_info = await app.get_chat(l2_2Y)
                 link = chat_info.invite_link
             try:
                 await msg.reply(
-                    f"~︙عزيزي {msg.from_user.mention} \n~︙عليك الأشتراك في قناة البوت \n~︙قناة البوت : @{Muntazer}.",
+                    f"~︙عزيزي {msg.from_user.mention} \n~︙عليك الأشتراك في قناة البوت \n~︙قناة البوت : @{l2_2Y}.",
                     disable_web_page_preview=True,
                     reply_markup=InlineKeyboardMarkup([
                         [InlineKeyboardButton("<قناة البوت>", url=link)]
@@ -29,4 +29,4 @@ async def must_join_channel(app: Client, msg: Message):
             except ChatWriteForbidden:
                 pass
     except ChatAdminRequired:
-        print(f"I m not admin in the MUST_JOIN chat {Muntazer}!")
+        print(f"I m not admin in the MUST_JOIN chat {l2_2Y}!")

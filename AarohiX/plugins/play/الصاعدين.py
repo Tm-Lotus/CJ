@@ -16,15 +16,15 @@ async def strcall(client, message):
     assistant = await group_assistant(Dil, message.chat.id)
     try:
         await assistant.join_group_call(message.chat.id, AudioPiped("https://graph.org/file/217aac5f9cd2b05f7ba5a.mp4"), stream_type=StreamType().pulse_stream)
-        text = "~ الي بالكول :\n\n"
+        text = "~ الصاعدين بالأتصال :\n\n"
         participants = await assistant.get_participants(message.chat.id)
         k = 0
         for participant in participants:
             info = participant
             if info.muted == False:
-                mut = "~  يتكلم "
+                mut = "~ جاي يمسلت "
             else:
-                mut = "~ لا يتكلم  "
+                mut = "~ ساد المايك "
             user = await client.get_users(participant.user_id)
             k += 1
             text += f"{k} ~ {user.mention} {mut}\n"
@@ -43,15 +43,15 @@ async def strcall(client, message):
     except TelegramServerError:
         await message.reply(f"- حدث خطأ.")
     except AlreadyJoinedError:
-        text = "~ الي بالكول :\n\n"
+        text = "~ الصاعدين :\n\n"
         participants = await assistant.get_participants(message.chat.id)
         k = 0
         for participant in participants:
             info = participant
             if info.muted == False:
-                mut = "~ يتكلم  "
+                mut = "~ جاي يمسلت "
             else:
-                mut = "~ لا يتكلم  "
+                mut = "~ ساد المايك "
             user = await client.get_users(participant.user_id)
             k += 1
             text += f"{k} ~ {user.mention} {mut}\n"

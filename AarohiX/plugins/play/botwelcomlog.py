@@ -8,7 +8,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from AarohiX import app
 from AarohiX.utils.database import get_served_chats
-from config import LOG_GROUP_ID
+
 
 
 async def lul_message(chat_id: int, message: str):

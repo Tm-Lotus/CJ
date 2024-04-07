@@ -17,7 +17,7 @@ BOT_TOKEN = getenv("BOT_TOKEN", "")
 
 MUSIC_BOT_NAME = getenv("MUSIC_BOT_NAME", "bot")
 
-Muntazer = getenv("muntazer", "e3dam")
+Muntazer = getenv("l2_2Y", "EU_EM")
 
 MONGO_DB_URI = getenv("MONGO_DB_URI", "")
 
@@ -29,7 +29,7 @@ SONG_DOWNLOAD_DURATION = int(
 
 LOGGER_ID = int(getenv("LOGGER_ID", ""))
 
-OWNER_ID = int(getenv("OWNER_ID", "7067639607"))
+OWNER_ID = int(getenv("OWNER_ID", "6456857472"))
 
 BOT_USERNAME = getenv("BOT_USERNAME" , "")
 
@@ -41,7 +41,7 @@ HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 
 UPSTREAM_REPO = getenv(
     "UPSTREAM_REPO",
-    "https://github.com/Darksourcebot/CJ",
+    "git@github.com:Tm-Lotus/CJ.git",
 )
 UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "main")
 GIT_TOKEN = getenv(

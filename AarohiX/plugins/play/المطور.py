@@ -1,50 +1,84 @@
-from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
-from strings.filters import command
-from AarohiX import app
+import asyncio
+import os
+import time
+import requests
+import aiohttp
 import config
+from pyrogram import filters
+from pyrogram import Client
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
+from AarohiX import (Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app)
+from AarohiX import app
 
-@app.on_message(
-    command(["اوامر", "الاوامر"])
-)
-async def mmmezat(client, message):
-    await message.reply_text(
-        f"""مرحبًا بك عزيزي {message.from_user.mention} في قسم مميزات سورس سي جي ميوزك\nهنا تكتب الاوامر """,
+import re
+import sys
+from os import getenv
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+OWNER_ID = getenv("OWNER_ID")
+
+OWNER = getenv("OWNER")
+
+
+def get_file_id(msg: Message):
+    if msg.media:
+        for message_type in (
+            "photo",
+            "animation",
+            "audio",
+            "document",
+            "video",
+            "video_note",
+            "voice",
+            # "contact",
+            # "dice",
+            # "poll",
+            # "location",
+            # "venue",
+            "sticker",
+        ):
+            obj = getattr(msg, message_type)
+            if obj:
+                setattr(obj, "message_type", message_type)
+                return obj
+
+@app.on_message(filters.command(["مطور"], ""))
+async def khfzss(client: Client, message: Message):
+    usrr = await client.get_chat(OWNER_ID)
+    name = usrr.first_name
+    bio = usrr.bio
+    id = usrr.id
+    username = usrr.username
+    async for photo in client.get_chat_photos(OWNER_ID, limit=1):
+                    await message.reply_photo(photo.file_id,       caption=f"""- 𓏺 َِՏΌႮᎡᏟᎬ ᏞΌͲႮՏ : \n\n⌔︙𝒏𝒂𝒎𝒆: {name} \n\n⌔︙𝒖𝒔𝒆𝒓: @{username} \n\n⌔︙𝒊𝒅: {id} \n\n⌔︙𝒃𝒊𝒐: {bio} \n\n⌔︙𝒋𝒐𝒃:  مطور البوت """, 
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "- المطور .", url=f"tg://openmessage?user_id={config.OWNER_ID}"
-                    ),
-                ],
-                [
-                    InlineKeyboardButton(
-                        "- مسح .", callback_data="close"
-                    ),
+                        name, url=f"https://t.me/{username}")
                 ],
             ]
         ),
-    )
+    )                    
+                    sender_id = message.from_user.id
+                    sender_name = message.from_user.first_name
+                    await app.send_message(OWNER_ID, f"الواد {message.from_user.mention} دا بينادي عليك \n\n الايدي بتاعه : {sender_id} \n\n اسمه : {sender_name}")
+                    return await app.send_message(config.LOG_GROUP_ID, f"الواد {message.from_user.mention} دا بينادي عليك \n\n الايدي بتاعه : {sender_id} \n\n اسمه : {sender_name}")
 
-@app.on_message(
-    command(["المطور"])
-)
-async def maker(client: Client, message: Message):
-    await message.reply_photo(
-        photo="https://telegra.ph/file/fba6a5152ca49bce2f2b1.jpg",
-        caption="للتواصل مع مطور البوت",
-        reply_markup=InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton(
-                        "- مطور البوت .", url=f"tg://openmessage?user_id={config.OWNER_ID}"
-                    ),
-                ],
-                [
-                    InlineKeyboardButton(
-                        "- جروب البوت . ", url=config.SUPPORT_CHAT
-                    ),
-                ],
-            ]
-        ),
-    )
+
+@app.on_message(filters.command(["تحويل لصوره"], ""))
+async def elkatifh(client: Client, message: Message):
+    reply = message.reply_to_message
+    if not reply:
+        return await message.reply("الرد على ملصق.")
+    if not reply.sticker:
+        return await message.reply("الرد على ملصق.")
+    m = await message.reply("يتم المعالجه..")
+    f = await reply.download(f"{reply.sticker.file_unique_id}.png")
+    await gather(*[message.reply_photo(f),message.reply_document(f)])
+    await m.delete()
+    os.remove(f)
+

@@ -11,7 +11,7 @@ from AarohiX.utils.database import *
 from pytgcalls.exceptions import (NoActiveGroupCall,TelegramServerError,AlreadyJoinedError)
 
 
-@app.on_message(filters.regex("^مين في الكول$"))
+@app.on_message(filters.regex("^الصاعدين$"))
 async def strcall(client, message):
     assistant = await group_assistant(Dil, message.chat.id)
     try:
